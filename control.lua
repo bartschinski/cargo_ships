@@ -37,7 +37,7 @@ function onEntityBuild(e)
 		if ent.name == "cargo_ship" or ent.name == "oil_tanker" then
 			local pos, dir = localize_engine(ent)
 			engine = ent.surface.create_entity{name = "cargo_ship_engine", position = pos, direction = dir, force = ent.force}
-		elseif ent.name == "boat"  then
+		elseif ent.name == "boat" or ent.name == "ferry-boat" then
 			local pos, dir = localize_engine(ent)
 			engine = ent.surface.create_entity{name = "boat_engine", position = pos, direction = dir, force = ent.force}
 		end
@@ -186,7 +186,7 @@ end
 function OnDeleted(e)
 	if(e.entity) then
 		local ent = e.entity
-		if ent.name == "cargo_ship" or ent.name == "oil_tanker" or ent.name == "boat" then
+		if ent.name == "cargo_ship" or ent.name == "oil_tanker" or ent.name == "boat" or ent.name == "ferry-boat" then
 			if ent.train ~= nil then
 
 				if ent.train.back_stock ~= nil then
@@ -204,7 +204,7 @@ function OnDeleted(e)
 		elseif ent.name == "cargo_ship_engine" or ent.name == "boat_engine" then
 			if ent.train ~= nil then
 				if ent.train.front_stock ~= nil then
-					if ent.train.front_stock.name == "cargo_ship" or ent.train.front_stock.name == "oil_tanker" or ent.train.front_stock.name == "boat" then
+					if ent.train.front_stock.name == "cargo_ship" or ent.train.front_stock.name == "oil_tanker" or ent.train.front_stock.name == "boat" or ent.train.front_stock.name == "ferry-boat" then
 						ent.train.front_stock.destroy()
 					end
 				end
@@ -241,7 +241,7 @@ end
 -- recover fuel of cargo ship engine
 function OnMined(e)
 	if(e.entity) then
-		if e.entity.name == "cargo_ship" or e.entity.name == "oil_tanker" or e.entity.name == "boat" then
+		if e.entity.name == "cargo_ship" or e.entity.name == "oil_tanker" or e.entity.name == "boat" or e.entity.name == "ferry-boat" then
 			local ent = e.entity
 			local player_index = e.player_index
 			local engine

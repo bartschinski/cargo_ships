@@ -11,7 +11,7 @@ offset[7] = {x = 7, y = 7}
 function localize_engine(ent)
 	local i = (math.floor((ent.orientation*8)+0.5))%8
 
-	local mult =(ent.name == "indep-boat" or ent.name == "boat") and -0.3 or 1
+	local mult =(ent.name == "indep-boat" or ent.name == "boat" or ent.name == "ferry-boat") and -0.3 or 1
 	local pos = {x = ent.position.x + offset[i].x*mult, y = ent.position.y + offset[i].y*mult}
 	--game.players[1].print("x_off: " .. offset[i].x*mult .. " y_off: " .. offset[i].y*mult)
 	
@@ -59,7 +59,7 @@ function checkPlacement()
 		local engine = entry[2]
 		local player_index = entry[3]
 		if entity and entity.valid then
-			if entity.name == "cargo_ship" or entity.name == "oil_tanker" or entity.name == "boat" then
+			if entity.name == "cargo_ship" or entity.name == "oil_tanker" or entity.name == "boat" or entity.name == "ferry-boat" then
 				-- check for too many connections
 				-- check for correct engine placement
 				if engine == nil then
@@ -106,7 +106,7 @@ end
 function cancelPlacement(entity, player_index)
 	if entity.name ~= "cargo_ship_engine" and entity.name ~= "boat_engine" then
 		game.players[player_index].insert{name=entity.name, count=1}
-		if entity.name == "cargo_ship" or entity.name == "oil_tanker" or entity.name =="boat" then
+		if entity.name == "cargo_ship" or entity.name == "oil_tanker" or entity.name =="boat" or entity.name == "ferry-boat" then
 			game.players[player_index].print("Ships need to be placed on straight water ways and with sufficient space to both sides!")
 		else
 			game.players[player_index].print("Trains can not be placed on water ways!")
@@ -165,7 +165,7 @@ function On_Train_Created(e)
 				-- stop when succseful
 				if check then break end
 			-- if back of ship-tuple, disconnect towards back (in reverse direction)
-			elseif parts[i].name == "boat" or parts[i].name == "cargo_ship_engine" then
+			elseif parts[i].name == "boat" or parts[i].name == "ferry-boat" or parts[i].name == "cargo_ship_engine" then
 				local check = parts[i].disconnect_rolling_stock((parts[i].direction+1)%2)
 
 				-- stop when succseful
