@@ -2,9 +2,19 @@
 --------------------------- PUMP -------------------------------
 ----------------------------------------------------------------
 
-local pump = data.raw["pump"]["pump"]
-pump.collision_mask = {"object-layer", "train-layer"} -- train-layer collides with player
-pump.water_reflection = {
+local ship_pump = table.deepcopy(data.raw["pump"]["pump"])
+ship_pump.name = "ship_pump"
+ship_pump.icon = GRAPHICSPATH .. "icons/ship_pump.png"
+ship_pump.icon_size = 64
+ship_pump.icon_mipmaps = 0
+ship_pump.minable = {mining_time = 1, result = "ship_pump"}
+ship_pump.collision_mask = {"object-layer"}
+ship_pump.pumping_speed = 1000
+ship_pump.energy_usage = "50kW"
+ship_pump.next_upgrade = nil
+--ship_pump.fluid_wagon_connector_frame_count = nil
+--ship_pump.fluid_wagon_connector_graphics = nil
+ship_pump.water_reflection = {
   pictures = {
     filename = GRAPHICSPATH .. "entity/pump/pump-water-reflection.png",
     line_length = 1,
@@ -34,4 +44,4 @@ pump_marker.picture = {
   frame_count = 1
 }
 
-data:extend({ pump_marker })
+data:extend({ ship_pump, pump_marker })
