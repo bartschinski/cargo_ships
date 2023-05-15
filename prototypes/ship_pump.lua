@@ -12,6 +12,17 @@ ship_pump.collision_mask = {"object-layer"}
 ship_pump.pumping_speed = 1000
 ship_pump.energy_usage = "50kW"
 ship_pump.next_upgrade = nil
+
+ship_pump.collision_box = {{-0.29, -1.4}, {0.29, 1.4}}
+ship_pump.selection_box = {{-0.5, -1.5}, {0.5, 1.5}}
+ship_pump.fluid_box.pipe_connections =
+      {
+        { position = {0, -2}, type="output" },
+        { position = {0, 2}, type="input" }
+      }
+    
+
+
 --ship_pump.fluid_wagon_connector_frame_count = nil
 --ship_pump.fluid_wagon_connector_graphics = nil
 ship_pump.water_reflection = {
